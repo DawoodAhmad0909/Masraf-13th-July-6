@@ -2,15 +2,15 @@ CREATE DATABASE MD13thJ6_db;
 USE MD13thJ6_db;
 
 CREATE TABLE users(
-    user_id INT PRIMARY KEY AUTO_INCREMENT,
-    username TEXT,
-    email TEXT,
+    user_id       INT PRIMARY KEY AUTO_INCREMENT,
+    username      TEXT,
+    email         TEXT,
     password_hash TEXT,
-    first_name TEXT,
-    last_name TEXT,
-    birth_date DATE,
-    gender TEXT,
-    created_at DECIMAL(10,2)
+    first_name    TEXT,
+    last_name     TEXT,
+    birth_date    DATE,
+    gender        TEXT,
+    created_at    DECIMAL(10,2)
 );
 
 SELECT * FROM users ;
@@ -21,15 +21,15 @@ INSERT INTO users(username,email,password_hash,first_name,last_name,birth_date,g
 	('mikefit', 'mike@example.com', '$2a$10$zQw...', 'Michael', 'Johnson', '1988-03-10', 'Male', 182.88);
 
 CREATE TABLE biometrics(
-    biometric_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT,
-    record_date DATE,
-    weight_kg DECIMAL(10,2),
-    body_fat_percent DECIMAL(10,2),
-    muscle_mass_kg DECIMAL(10,2),
-    resting_heart_rate DECIMAL(10,2),
-    blood_pressure_systolic BOOLEAN,
-    blood_pressure_diastolic BOOLEAN,
+    biometric_id                INT PRIMARY KEY AUTO_INCREMENT,
+    user_id                     INT,
+    record_date                 DATE,
+    weight_kg                   DECIMAL(10,2), 
+    body_fat_percent            DECIMAL(10,2),
+    muscle_mass_kg              DECIMAL(10,2),
+    resting_heart_rate          DECIMAL(10,2),
+    blood_pressure_systolic     DECIMAL(10,2), 
+    blood_pressure_diastolic    DECIMAL(10,2), 
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
@@ -42,11 +42,11 @@ INSERT INTO biometrics(user_id,record_date,weight_kg,body_fat_percent,muscle_mas
 	(3, '2023-10-01', 85.2, 15.8, 40.1, 58);
 
 CREATE TABLE exercise_types(
-    exercise_type_id INT PRIMARY KEY AUTO_INCREMENT,
-    name TEXT,
-    category TEXT,
-    description TEXT,
-    calories_burned_per_min DECIMAL(10,2)
+    exercise_type_id           INT PRIMARY KEY AUTO_INCREMENT,
+    name                       TEXT,
+    category                   TEXT,
+    description                TEXT, 
+    calories_burned_per_min    DECIMAL(10,2)
 );
 
 SELECT * FROM exercise_types ;
@@ -59,14 +59,14 @@ INSERT INTO exercise_types(name,category,description,calories_burned_per_min) VA
 	('Cycling', 'Cardio', 'Stationary or outdoor cycling', 8.7);
 
 CREATE TABLE workouts(
-    workout_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT,
-    workout_date DATE,
-    start_time TIME,
-    end_time TIME,
-    notes TEXT,
-    total_calories_burned DECIMAL(10,2),
-    perceived_exertion DECIMAL(10,2),
+    workout_id             INT PRIMARY KEY AUTO_INCREMENT,
+    user_id                INT,
+    workout_date           DATE,
+    start_time             TIME,
+    end_time               TIME,
+    notes                  TEXT,
+    total_calories_burned  DECIMAL(10,2),
+    perceived_exertion     DECIMAL(10,2),
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
@@ -79,15 +79,15 @@ INSERT INTO workouts(user_id,workout_date,start_time,end_time,total_calories_bur
 	(3, '2023-10-02', '12:00:00', '13:00:00', 600, 9);
 
 CREATE TABLE workout_exercises(
-    workout_exercise_id INT PRIMARY KEY AUTO_INCREMENT,
-    workout_id INT,
-    exercise_type_id INT,
-    sets INT,
-    reps INT,
-    weight_kg DECIMAL(10,2),
-    duration_minutes DECIMAL(10,2),
-    distance_km DECIMAL(10,2),
-    calories_burned DECIMAL(10,2),
+    workout_exercise_id        INT PRIMARY KEY AUTO_INCREMENT,
+    workout_id                 INT,
+    exercise_type_id           INT,
+    sets                       INT,
+    reps                       INT,
+    weight_kg                  DECIMAL(10,2),
+    duration_minutes           DECIMAL(10,2),
+    distance_km                DECIMAL(10,2),
+    calories_burned            DECIMAL(10,2),
     FOREIGN KEY (workout_id) REFERENCES workouts(workout_id),
     FOREIGN KEY (exercise_type_id) REFERENCES exercise_types(exercise_type_id)
 );
@@ -103,14 +103,14 @@ INSERT INTO workout_exercises(workout_id,exercise_type_id,sets,reps,weight_kg,du
 	(4, 1, NULL, NULL, NULL, 60, 630);
 
 CREATE TABLE food_items(
-    food_id INT PRIMARY KEY AUTO_INCREMENT,
-    name TEXT,
-    brand TEXT,
-    serving_size TEXT,
-    calories_per_serving DECIMAL(10,2),
-    protein_g DECIMAL(10,2),
-    carbs_g DECIMAL(10,2),
-    fats_g DECIMAL(10,2)
+    food_id               INT PRIMARY KEY AUTO_INCREMENT,
+    name                  TEXT,
+    brand                 TEXT,
+    serving_size          TEXT,
+    calories_per_serving  DECIMAL(10,2),
+    protein_g             DECIMAL(10,2),
+    carbs_g               DECIMAL(10,2),
+    fats_g                DECIMAL(10,2)
 );
 
 SELECT * FROM food_items ;
@@ -122,16 +122,16 @@ INSERT INTO food_items(name,brand,serving_size,calories_per_serving,protein_g,ca
 	('Protein Powder', 'Optimum Nutrition', '1 scoop (32g)', 120, 24.0, 3.0, 1.0);
 
 CREATE TABLE meals(
-    meal_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT,
-    meal_date DATE,
-    meal_time TIME,
-    meal_type TEXT,
-    total_calories DECIMAL(10,2),
-    protein_g DECIMAL(10,2),
-    carbs_g DECIMAL(10,2),
-    fats_g DECIMAL(10,2),
-    notes TEXT,
+    meal_id           INT PRIMARY KEY AUTO_INCREMENT,
+    user_id           INT,
+    meal_date         DATE,
+    meal_time         TIME,
+    meal_type         TEXT,
+    total_calories    DECIMAL(10,2),
+    protein_g         DECIMAL(10,2),
+    carbs_g           DECIMAL(10,2),
+    fats_g            DECIMAL(10,2),
+    notes             TEXT,
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
@@ -143,10 +143,10 @@ INSERT INTO meals(user_id,meal_date,meal_time,meal_type,total_calories,protein_g
 	(2, '2023-10-03', '07:30:00', 'Breakfast', 380, 25, 40, 10);
 
 CREATE TABLE meal_foods(
-    meal_food_id INT PRIMARY KEY AUTO_INCREMENT,
-    meal_id INT,
-    food_id INT,
-    servings DECIMAL(10,2),
+    meal_food_id   INT PRIMARY KEY AUTO_INCREMENT,
+    meal_id        INT,
+    food_id        INT,
+    servings       DECIMAL(10,2),
     FOREIGN KEY (meal_id) REFERENCES meals(meal_id),
     FOREIGN KEY (food_id) REFERENCES food_items(food_id)
 );
@@ -162,15 +162,15 @@ INSERT INTO meal_foods(meal_id,food_id,servings) VALUES
 	(3, 3, 0.3);
 
 CREATE TABLE goals(
-    goal_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT,
-    goal_type TEXT,
-    target_value DECIMAL(10,2),
-    target_date DATE,
-    current_value DECIMAL(10,2),
-    start_date DATE, 
-    is_completed BOOLEAN,
-    notes TEXT,
+    goal_id         INT PRIMARY KEY AUTO_INCREMENT,
+    user_id         INT,
+    goal_type       TEXT,
+    target_value    DECIMAL(10,2),
+    target_date     DATE,
+    current_value   DECIMAL(10,2),
+    start_date      DATE, 
+    is_completed    BOOLEAN,
+    notes           TEXT,
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
